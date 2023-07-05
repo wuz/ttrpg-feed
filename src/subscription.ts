@@ -4,26 +4,24 @@ import {
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
 
+
+// A simple regex to match a bunch of different games with different spacing and the option to be a hashtag!
+const matchRegex = /\b#?(ttrpg|d&d|dnd|pathfinder|dungeons\s*and\s*dragons|mork\s*borg|blades\s*in\s*the\s*dark|urban\s*shadows|symbaroum|shadowdark|🎲)\b/
+
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
   async handleEvent(evt: RepoEvent) {
     if (!isCommit(evt)) return
     const ops = await getOpsByType(evt)
 
-    // This logs the text of every post off the firehose.
-    // Just for fun :)
-    // Delete before actually using
-    for (const post of ops.posts.creates) {
-      console.log(post.record.text)
-    }
-
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
       .filter((create) => {
-        // only alf-related posts
-        return create.record.text.toLowerCase().includes('alf')
+        // only TTRPG related posts
+        return matchRegex.test(create.record.text.toLowerCase());
       })
       .map((create) => {
-        // map alf-related posts to a db row
+        console.log(create.record.text);
+        // map to DB row
         return {
           uri: create.uri,
           cid: create.cid,
@@ -42,8 +40,8 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     if (postsToCreate.length > 0) {
       await this.db
         .insertInto('post')
+        .ignore()
         .values(postsToCreate)
-        .onConflict((oc) => oc.doNothing())
         .execute()
     }
   }

@@ -12,15 +12,15 @@ migrations['001'] = {
   async up(db: Kysely<unknown>) {
     await db.schema
       .createTable('post')
-      .addColumn('uri', 'varchar', (col) => col.primaryKey())
-      .addColumn('cid', 'varchar', (col) => col.notNull())
-      .addColumn('replyParent', 'varchar')
-      .addColumn('replyRoot', 'varchar')
-      .addColumn('indexedAt', 'varchar', (col) => col.notNull())
+      .addColumn('uri', 'varchar(255)', (col) => col.primaryKey())
+      .addColumn('cid', 'varchar(255)', (col) => col.notNull())
+      .addColumn('replyParent', 'varchar(255)')
+      .addColumn('replyRoot', 'varchar(255)')
+      .addColumn('indexedAt', 'varchar(255)', (col) => col.notNull())
       .execute()
     await db.schema
       .createTable('sub_state')
-      .addColumn('service', 'varchar', (col) => col.primaryKey())
+      .addColumn('service', 'varchar(255)', (col) => col.primaryKey())
       .addColumn('cursor', 'integer', (col) => col.notNull())
       .execute()
   },
