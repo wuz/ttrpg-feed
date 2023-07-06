@@ -3,7 +3,7 @@ import { QueryParams } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import { AppContext } from '../config'
 
 // max 15 chars
-export const shortname = 'ttrpg-folks'
+export const shortname = 'aaabotewjkiv4'
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db

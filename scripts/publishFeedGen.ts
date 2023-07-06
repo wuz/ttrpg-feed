@@ -2,34 +2,39 @@ import dotenv from 'dotenv'
 import { AtpAgent, BlobRef } from '@atproto/api'
 import fs from 'fs/promises'
 import { ids } from '../src/lexicon/lexicons'
+import path from 'path';
+
+const envPath = path.resolve(__dirname, '../.env.local');
 
 const run = async () => {
-  dotenv.config()
+  dotenv.config({ path:envPath})
 
   // YOUR bluesky handle
   // Ex: user.bsky.social
-  const handle = ''
+  const handle = 'skeet.computer'
 
   // YOUR bluesky password, or preferably an App Password (found in your client settings)
   // Ex: abcd-1234-efgh-5678
-  const password = ''
+  const password = process.env.BSKY_PASSWORD ?? ''
 
   // A short name for the record that will show in urls
   // Lowercase with no spaces.
   // Ex: whats-hot
-  const recordName = ''
+  const recordName = 'aaabotewjkiv4'
+  // const recordName = 'ttrpg-folks'
 
   // A display name for your feed
   // Ex: What's Hot
-  const displayName = ''
+  const displayName = 'TTRPG Folks'
 
   // (Optional) A description of your feed
   // Ex: Top trending content from the whole network
-  const description = ''
+  const description = `An all-inclusive feed of TTRPG posts! Includes basic terms AND references to specific games!
+  Have a request for a specific game? Reach out to @skeet.computer`;
 
   // (Optional) The path to an image to be used as your feed's avatar
   // Ex: ~/path/to/avatar.jpeg
-  const avatar: string = ''
+  const avatar: string = path.resolve(__dirname, '../avatar.png');
 
   // -------------------------------------
   // NO NEED TO TOUCH ANYTHING BELOW HERE
