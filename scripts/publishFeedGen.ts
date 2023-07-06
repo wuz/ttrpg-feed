@@ -9,31 +9,15 @@ const envPath = path.resolve(__dirname, '../.env.local');
 const run = async () => {
   dotenv.config({ path:envPath})
 
-  // YOUR bluesky handle
-  // Ex: user.bsky.social
   const handle = 'skeet.computer'
-
-  // YOUR bluesky password, or preferably an App Password (found in your client settings)
-  // Ex: abcd-1234-efgh-5678
   const password = process.env.BSKY_PASSWORD ?? ''
-
-  // A short name for the record that will show in urls
-  // Lowercase with no spaces.
-  // Ex: whats-hot
   const recordName = 'aaabotewjkiv4'
   // const recordName = 'ttrpg-folks'
 
-  // A display name for your feed
-  // Ex: What's Hot
   const displayName = 'TTRPG Folks'
-
-  // (Optional) A description of your feed
-  // Ex: Top trending content from the whole network
-  const description = `An all-inclusive feed of TTRPG posts! Includes basic terms AND references to specific games!
-  Have a request for a specific game? Reach out to @skeet.computer`;
-
-  // (Optional) The path to an image to be used as your feed's avatar
-  // Ex: ~/path/to/avatar.jpeg
+  const description = `A comprehensive feed of TTRPG posts! 
+  Have a request for a specific game? Reach out to @skeet.computer. 
+  Opt out with #nofeed or #nottrpgfeed.`;
   const avatar: string = path.resolve(__dirname, '../avatar.png');
 
   // -------------------------------------

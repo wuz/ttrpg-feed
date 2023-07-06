@@ -120,9 +120,7 @@ const emojiMatch = [
   
 const buildRegex = () => {
   const regexFields = terms.map(term => term.replace(/\s/gi, '\\s*')).join('|');
-
   const regexString = `\\b#?(${regexFields})\\b`;
-  console.log(regexString);
   return new RegExp(regexString);
 };
 
@@ -138,7 +136,8 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
       .filter((create) => {
         const matchTerms = matchRegex.test(create.record.text.toLowerCase());
         const matchEmoji = emojiMatch.some((emoji) => create.record.text.includes(emoji));
-        return matchTerms || matchEmoji;
+        const optout = /\b#?(nofeed|nottrpgfeed)\b/.test(create.record.text);
+        return !optout && (matchTerms || matchEmoji);
       })
       .map((create) => {
         return {
