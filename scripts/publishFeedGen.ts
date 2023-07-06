@@ -12,7 +12,7 @@ const run = async () => {
   const handle = 'skeet.computer'
   const password = process.env.BSKY_PASSWORD ?? ''
   // const recordName = 'aaabotewjkiv4'
-  const recordName = 'ttrpg-folks-testing'
+  const recordName = 'ttrpgfolkstest'
 
   const displayName = 'TTRPG Folks Testing'
 //   const description = `A comprehensive feed of TTRPG posts! 
