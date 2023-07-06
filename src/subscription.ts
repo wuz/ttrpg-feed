@@ -4,7 +4,6 @@ import {
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
 
-
 // A simple regex to match a bunch of different games with different spacing and the option to be a hashtag!
 const matchRegex = /\b#?(ttrpg|d&d|dnd|pathfinder|dungeons\s*and\s*dragons|mork\s*borg|blades\s*in\s*the\s*dark|urban\s*shadows|symbaroum|shadowdark|🎲)\b/
 

@@ -5,6 +5,8 @@ import { AppContext } from '../config'
 // max 15 chars
 export const shortname = 'aaabotewjkiv4'
 
+const pinnedMessage = '';
+
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
     .selectFrom('post')
@@ -26,15 +28,22 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
   }
   const res = await builder.execute()
 
-  const feed = res.map((row) => ({
+  const feed = [] as Array<{post: string}>;
+
+  if(pinnedMessage) {
+    feed.push({ post: pinnedMessage })
+  }
+
+  feed.concat(res.map((row) => ({
     post: row.uri,
-  }))
+  })));
 
   let cursor: string | undefined
   const last = res.at(-1)
   if (last) {
     cursor = `${new Date(last.indexedAt).getTime()}::${last.cid}`
   }
+  
 
   return {
     cursor,
