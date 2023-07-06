@@ -15,6 +15,10 @@ const terms = [
   'dungeon master',
   'character art',
 
+  // promo stuff
+  'self(-\\s)promo saturday',
+  'wip wednesday',
+
   // shows
   'critical role',
   'dimension 20',
