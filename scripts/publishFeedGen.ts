@@ -16,8 +16,8 @@ const run = async () => {
 
   const displayName = 'TTRPG Folks'
   const description = `A comprehensive feed of TTRPG posts! 
-  Have a request for a specific game? Reach out to @skeet.computer. 
-  Opt out with #nofeed or #nottrpgfeed.`;
+Have a request for a specific game? Reach out to @skeet.computer. 
+Opt out with #nofeed or #nottrpgfeed.`;
   const avatar: string = path.resolve(__dirname, '../avatar.png');
 
   // -------------------------------------

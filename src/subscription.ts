@@ -77,6 +77,7 @@ const terms = [
   'tales from the loop',
   'vaesen',
   'r\.? talsorian',
+  'darrington press',
   
   // other games
   'warhammer',
@@ -105,6 +106,8 @@ const terms = [
   'powered by the apocalypse',
   'pbta',
   'forged in the dark',
+  'candela obscura',
+  'daggerheart',
 
   // looser terms
   'worldbuilding',
