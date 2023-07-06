@@ -11,13 +11,14 @@ const run = async () => {
 
   const handle = 'skeet.computer'
   const password = process.env.BSKY_PASSWORD ?? ''
-  const recordName = 'aaabotewjkiv4'
-  // const recordName = 'ttrpg-folks'
+  // const recordName = 'aaabotewjkiv4'
+  const recordName = 'ttrpg-folks-testing'
 
-  const displayName = 'TTRPG Folks'
-  const description = `A comprehensive feed of TTRPG posts! 
-Have a request for a specific game? Reach out to @skeet.computer. 
-Opt out with #nofeed or #nottrpgfeed.`;
+  const displayName = 'TTRPG Folks Testing'
+//   const description = `A comprehensive feed of TTRPG posts! 
+// Have a request for a specific game? Reach out to @skeet.computer. 
+// Opt out with #nofeed or #nottrpgfeed.`;
+const description = `A test feed for the TTRPG Folks feed.`;
   const avatar: string = path.resolve(__dirname, '../avatar.png');
 
   // -------------------------------------

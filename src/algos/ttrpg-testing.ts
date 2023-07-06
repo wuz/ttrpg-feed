@@ -2,7 +2,7 @@ import { InvalidRequestError } from '@atproto/xrpc-server'
 import { QueryParams } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import { AppContext } from '../config'
 
-export const shortname = 'aaabotewjkiv4'
+export const shortname = 'ttrpg-folks-testing'
 
 const terms = [
   // general
@@ -151,7 +151,7 @@ const pinnedMessage = '';
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
     .selectFrom('post')
-    .where('tag', '==', shortname)
+    // .where('tag', '==', shortname)
     .selectAll()
     .orderBy('indexedAt', 'desc')
     .orderBy('cid', 'desc')
