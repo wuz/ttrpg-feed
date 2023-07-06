@@ -17,7 +17,7 @@ export type Post = {
 
 export type PostTag = {
   id: number
-  post_uri: Generated<Post>
+  post_uri: string
   tag: string
 }
 

@@ -2,15 +2,38 @@ import { InvalidRequestError } from '@atproto/xrpc-server'
 import { QueryParams } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import { AppContext } from '../config'
 
-// max 15 chars
 export const shortname = 'critrolespoiler'
 
-const pinnedMessage = '';
+const terms = [
+  'crit(cal)? role spoilers?'
+];
+
+import buildRegex from './buildRegex';
+
+const matchRegex = buildRegex(terms);
+
+const matcher = (post) => {
+  const matchTerms = matchRegex.test(post.record.text.toLowerCase());
+  return matchTerms;
+}
+
+export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
+  console.log(create.record.text);
+  return {
+    uri: create.uri,
+    cid: create.cid,
+    replyParent: create.record?.reply?.parent.uri ?? null,
+    replyRoot: create.record?.reply?.root.uri ?? null,
+    indexedAt: new Date().toISOString(),
+  }
+});
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
     .selectFrom('post')
-    .selectAll()
+    .innerJoin('post_tag', 'post_tag.post_uri', 'post.uri')
+    .where('post_tag.tag', '=', shortname)
+    .selectAll('post')
     .orderBy('indexedAt', 'desc')
     .orderBy('cid', 'desc')
     .limit(params.limit)
@@ -32,17 +55,12 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
     post: row.uri,
   }));
 
-  if(pinnedMessage) {
-    feed.unshift({ post: pinnedMessage })
-  }
-
   let cursor: string | undefined
   const last = res.at(-1)
   if (last) {
     cursor = `${new Date(last.indexedAt).getTime()}::${last.cid}`
   }
   
-
   return {
     cursor,
     feed,

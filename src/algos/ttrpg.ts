@@ -117,6 +117,12 @@ const terms = [
   'alchemy rpg',
 ];
 
+const excludeTerms = [
+  'crit(cal)? role spoilers?',
+  'nofeed',
+  'nottrpgfeed'
+];
+
 const emojis = [
     '🎲'
 ];
@@ -124,11 +130,12 @@ const emojis = [
 import buildRegex from './buildRegex';
 
 const matchRegex = buildRegex(terms);
+const excludeRegex = buildRegex(excludeTerms);
 
 const matcher = (post) => {
   const matchTerms = matchRegex.test(post.record.text.toLowerCase());
   const matchEmoji = emojis.some((emoji) => post.record.text.includes(emoji));
-  const optout = /\b#?(nofeed|nottrpgfeed)\b/.test(post.record.text);
+  const optout = excludeRegex.test(post.record.text.toLowerCase());
   return !optout && (matchTerms || matchEmoji);
 }
 
