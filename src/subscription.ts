@@ -19,6 +19,9 @@ const terms = [
   'self(-\\s)promo saturday',
   'wip wednesday',
 
+  // events
+  'gen con',
+
   // shows
   'critical role',
   'dimension 20',
