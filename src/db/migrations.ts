@@ -42,3 +42,41 @@ migrations['002'] = {
     .execute()
   }
 }
+
+migrations['003'] = {
+  async up(db: Kysely<unknown>) {
+    await db.schema.alterTable('post')
+    .dropColumn('tag')
+    .execute()
+    await db.schema
+    .createTable('post_tag')
+    .addColumn('post_uri', 'varchar(255)', col => col.references('post.uri').onDelete('no action').notNull())
+    .addColumn('tag', 'varchar(255)', col => col.notNull())
+    .addColumn('indexedAt', 'varchar(255)', col => col.notNull())
+    .execute()
+    await db.schema
+    .createIndex('post_tag_id_index')
+    .on('post_tag')
+    .column('post_uri')
+    .execute()
+  },
+  async down(db: Kysely<unknown>) {
+    await db.schema.alterTable('post')
+    .addColumn('tag', 'varchar(255)', (col) => col.notNull())
+    .execute()
+    await db.schema.dropTable('post_tag').execute()
+  }
+}
+
+migrations['004'] = {
+  async up(db: Kysely<unknown>) {
+    await db.schema.alterTable('post_tag')
+    .addColumn('id', 'serial', col => col.primaryKey())
+    .execute()
+  },
+  async down(db: Kysely<unknown>) {
+    await db.schema.alterTable('post_tag')
+    .dropColumn('id')
+    .execute()
+  }
+}

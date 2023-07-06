@@ -13,7 +13,6 @@ const dialect = new MysqlDialect({
 })
 
 export const createDb = async (): Promise<Database> => {
-
   return new Kysely<DatabaseSchema>({
     dialect,
   })

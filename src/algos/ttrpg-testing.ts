@@ -142,9 +142,8 @@ export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
       replyParent: create.record?.reply?.parent.uri ?? null,
       replyRoot: create.record?.reply?.root.uri ?? null,
       indexedAt: new Date().toISOString(),
-      tag: shortname,
     }
-  });
+});
 
 // max 15 chars
 
