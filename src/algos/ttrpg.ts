@@ -118,7 +118,7 @@ const terms = [
 ];
 
 const excludeTerms = [
-  'crit(cal)? role spoilers?',
+  'crit(ical)? role spoilers?',
   'nofeed',
   'nottrpgfeed'
 ];
@@ -154,8 +154,9 @@ const pinnedMessage = '';
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
     .selectFrom('post')
-    // .where('tag', '==', shortname)
-    .selectAll()
+    .innerJoin('post_tag', 'post_tag.post_uri', 'post.uri')
+    .where('post_tag.tag', '=', shortname)
+    .selectAll('post')
     .orderBy('indexedAt', 'desc')
     .orderBy('cid', 'desc')
     .limit(params.limit)

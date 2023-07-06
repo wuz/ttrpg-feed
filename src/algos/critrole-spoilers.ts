@@ -5,7 +5,7 @@ import { AppContext } from '../config'
 export const shortname = 'critrolespoiler'
 
 const terms = [
-  'crit(cal)? role spoilers?'
+  'crit(ical)? role spoilers?'
 ];
 
 import buildRegex from './buildRegex';
@@ -18,7 +18,6 @@ const matcher = (post) => {
 }
 
 export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
-  console.log(create.record.text);
   return {
     uri: create.uri,
     cid: create.cid,
