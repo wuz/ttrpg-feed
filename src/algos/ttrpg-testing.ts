@@ -5,6 +5,9 @@ import { AppContext } from '../config'
 export const shortname = 'ttrpgfolkstest'
 
 const terms = [
+  // testing term
+  'wuztestttrpg',
+  
   // general
   'ttrpg',
   'tabletop rpg',

@@ -24,6 +24,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "kysely": "^0.22.0",
+    "lodash": "^4.17.21",
     "multiformats": "^9.9.0",
     "mysql2": "^3.4.5"
   },
