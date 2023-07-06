@@ -28,15 +28,13 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
   }
   const res = await builder.execute()
 
-  const feed = [] as Array<{post: string}>;
+  const feed = res.map((row) => ({
+    post: row.uri,
+  }));
 
   if(pinnedMessage) {
-    feed.push({ post: pinnedMessage })
+    feed.unshift({ post: pinnedMessage })
   }
-
-  feed.concat(res.map((row) => ({
-    post: row.uri,
-  })));
 
   let cursor: string | undefined
   const last = res.at(-1)
