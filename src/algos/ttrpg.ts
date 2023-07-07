@@ -71,7 +71,6 @@ const terms = [
   'death in space',
   'the one ring',
   'vast grimm',
-  'cy borg',
   'cy_borg',
   'mutant year zero',
   'tales from the loop',

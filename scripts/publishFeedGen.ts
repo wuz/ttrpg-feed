@@ -3,23 +3,35 @@ import { AtpAgent, BlobRef } from '@atproto/api'
 import fs from 'fs/promises'
 import { ids } from '../src/lexicon/lexicons'
 import path from 'path';
+import { shortname as ttrpgShortname} from '../src/algos/ttrpg';
+import { shortname as critRoleSpoilerShortname} from '../src/algos/critrole-spoilers';
 
 const envPath = path.resolve(__dirname, '../.env.local');
+
+const feeds = [
+  {
+    recordName: ttrpgShortname,
+    displayName: 'TTRPG Folks',
+    description: `A comprehensive feed of TTRPG posts! 
+Have a request for a specific game? Reach out to @skeet.computer. 
+Opt out with #nofeed or #nottrpgfeed.`,
+    avatar: path.resolve(__dirname, '../ttrpgAvatar.png'),
+  },
+  {
+    recordName: critRoleSpoilerShortname,
+    displayName: 'Critical Role Spoilers',
+    description: `A feed of posts talking about Critical Role spoilers! 
+Something not working? Reach out to @skeet.computer. 
+To use, add "critical role spoiler" or #critrolespoiler to your posts.`,
+    avatar: path.resolve(__dirname, '../critRoleSpoilerAvatar.png'),
+  }
+];
 
 const run = async () => {
   dotenv.config({ path:envPath})
 
   const handle = 'skeet.computer'
   const password = process.env.BSKY_PASSWORD ?? ''
-  // const recordName = 'aaabotewjkiv4'
-  const recordName = 'ttrpgfolkstest'
-
-  const displayName = 'TTRPG Folks Testing'
-//   const description = `A comprehensive feed of TTRPG posts! 
-// Have a request for a specific game? Reach out to @skeet.computer. 
-// Opt out with #nofeed or #nottrpgfeed.`;
-  const description = `A test feed for the TTRPG Folks feed.`;
-  const avatar: string = path.resolve(__dirname, '../avatar.png');
 
   // -------------------------------------
   // NO NEED TO TOUCH ANYTHING BELOW HERE
@@ -43,35 +55,37 @@ const run = async () => {
     )
   }
 
-  let avatarRef: BlobRef | undefined
-  if (avatar) {
-    let encoding: string
-    if (avatar.endsWith('png')) {
-      encoding = 'image/png'
-    } else if (avatar.endsWith('jpg') || avatar.endsWith('jpeg')) {
-      encoding = 'image/jpeg'
-    } else {
-      throw new Error('expected png or jpeg')
+  await Promise.all(feeds.map(async ({avatar, recordName, displayName, description}) => {
+    let avatarRef: BlobRef | undefined
+    if (avatar) {
+      let encoding: string
+      if (avatar.endsWith('png')) {
+        encoding = 'image/png'
+      } else if (avatar.endsWith('jpg') || avatar.endsWith('jpeg')) {
+        encoding = 'image/jpeg'
+      } else {
+        throw new Error('expected png or jpeg')
+      }
+      const img = await fs.readFile(avatar)
+      const blobRes = await agent.api.com.atproto.repo.uploadBlob(img, {
+        encoding,
+      })
+      avatarRef = blobRes.data.blob
     }
-    const img = await fs.readFile(avatar)
-    const blobRes = await agent.api.com.atproto.repo.uploadBlob(img, {
-      encoding,
+  
+    await agent.api.com.atproto.repo.putRecord({
+      repo: agent.session?.did ?? '',
+      collection: ids.AppBskyFeedGenerator,
+      rkey: recordName,
+      record: {
+        did: feedGenDid,
+        displayName: displayName,
+        description: description,
+        avatar: avatarRef,
+        createdAt: new Date().toISOString(),
+      },
     })
-    avatarRef = blobRes.data.blob
-  }
-
-  await agent.api.com.atproto.repo.putRecord({
-    repo: agent.session?.did ?? '',
-    collection: ids.AppBskyFeedGenerator,
-    rkey: recordName,
-    record: {
-      did: feedGenDid,
-      displayName: displayName,
-      description: description,
-      avatar: avatarRef,
-      createdAt: new Date().toISOString(),
-    },
-  })
+  }));
 
   console.log('All done 🎉')
 }
