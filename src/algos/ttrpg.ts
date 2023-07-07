@@ -114,6 +114,9 @@ const terms = [
   'role20',
   'foundry vtt',
   'alchemy rpg',
+
+  // awards
+  'ennies',
 ];
 
 const excludeTerms = [
