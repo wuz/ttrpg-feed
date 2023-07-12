@@ -107,6 +107,7 @@ const terms = [
   'forged in the dark',
   'candela obscura',
   'daggerheart',
+  'monster hearts',
 
   // looser terms
   'worldbuilding',
