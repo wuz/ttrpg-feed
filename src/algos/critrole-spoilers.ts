@@ -27,6 +27,9 @@ export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
   }
 });
 
+// Message about the problems bsky has with antiblackness.
+const pinnedMessage = 'at://did:plc:iuk433sj23ncu2oo2pfnw7fw/app.bsky.feed.post/3k2eppfsut32c';
+
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
     .selectFrom('post')
@@ -53,6 +56,11 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
   const feed = res.map((row) => ({
     post: row.uri,
   }));
+
+  if(pinnedMessage) {
+    feed.unshift({ post: pinnedMessage })
+  }
+
 
   let cursor: string | undefined
   const last = res.at(-1)
