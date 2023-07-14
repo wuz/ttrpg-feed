@@ -153,7 +153,7 @@ export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
   });
 
 // Message about the problems bsky has with antiblackness.
-const pinnedMessage = 'at://did:plc:iuk433sj23ncu2oo2pfnw7fw/app.bsky.feed.post/3k2eppfsut32c';
+const pinnedMessage = 'at://did:plc:iuk433sj23ncu2oo2pfnw7fw/app.bsky.feed.post/3k2h5ainu4y26';
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
