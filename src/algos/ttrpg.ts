@@ -38,6 +38,8 @@ const terms = [
   'wizards of the coast',
   'paizo',
   'limithron',
+  'evil genius games',
+  'evil hat productions',
 
   // creators
   'bob the world builder',
