@@ -66,6 +66,7 @@ const terms = [
   
   // paizo
   'pathfinder',
+  'starfinder',
   
   // Free League
   'mork borg',
@@ -79,9 +80,29 @@ const terms = [
   'vaesen',
   'r\.? talsorian',
   'darrington press',
+
+  // Orr Report 2021 Top 25
+  // https://blog.roll20.net/media/orrreport-2021-q4-long.pdf
+  // this section only contains games from the Orr Report that weren't 
+  // in other sections already
+  'tormenta',
+  'das schwarze auge',
+  'apocalypse world',
+  'mutants and masterminds',
+  'shadowrun',
+  'savage worlds',
+  'vampire: the masquerade',
+  'lancer',
+  'dungeon world',
+
+  // ICV2 Report Fall 2022
+  // https://icv2.com/articles/markets/view/53650/top-hobby-channel-roleplaying-games-fall-2022
+  'transformers rpg',
   
   // other games
   'warhammer',
+  'wrath and glory',
+  'wrath & glory',
   'mutant:? year zero',
   'alien rpg',
   'fate system',
