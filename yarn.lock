@@ -61,6 +61,16 @@
   dependencies:
     "@atproto/common-web" "*"
 
+"@atproto/identity@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@atproto/identity/-/identity-0.1.0.tgz#735f62e66a661da79ce58f13303d259cb8999c4e"
+  integrity sha512-AsR7s5DwvMDkrDvWleYbK9ZD8vaSfpsfkNORgnNPlE603lP/lDZDO6mykeBVA/K4D272XO+DyBM0ruh/uWKOoQ==
+  dependencies:
+    "@atproto/common-web" "*"
+    "@atproto/crypto" "*"
+    axios "^0.27.2"
+    zod "^3.21.4"
+
 "@atproto/lexicon@*", "@atproto/lexicon@^0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@atproto/lexicon/-/lexicon-0.1.0.tgz"
@@ -1111,7 +1121,7 @@ yn@3.1.1:
   resolved "https://registry.npmjs.org/yn/-/yn-3.1.1.tgz"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
-zod@^3.14.2:
+zod@^3.14.2, zod@^3.21.4:
   version "3.21.4"
   resolved "https://registry.npmjs.org/zod/-/zod-3.21.4.tgz"
   integrity sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==
