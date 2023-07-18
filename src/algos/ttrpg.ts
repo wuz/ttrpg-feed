@@ -6,7 +6,7 @@ export const shortname = 'aaabotewjkiv4'
 
 const terms = [
   // general
-  'ttrpg',
+  'ttrpgs?',
   'tabletop rpg',
   'tabletop roleplaying',
   'tabletop game',
