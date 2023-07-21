@@ -10,5 +10,5 @@ This algorithm is pretty simple right now, but it basically checks each post aga
 
 Get the feed [here](https://bsky.app/profile/did:plc:iuk433sj23ncu2oo2pfnw7fw/feed/aaabotewjkiv4)!
 
-<!-- readme: contributors -start -->
-<!-- readme: contributors -end -->
+### Contributors
+
