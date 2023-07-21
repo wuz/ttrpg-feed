@@ -6,7 +6,7 @@ import { uniqBy } from 'lodash';
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
 import { filterAndMap as filterAndMapTTRPG, shortname as ttrpgShortname } from './algos/ttrpg'
 import { filterAndMap as filterAndMapCritRoleSpoiler, shortname as critRoleSpoilerShortname } from './algos/critrole-spoilers'
-import { filterAndMap as filterAndMapTTRPGIntro, shortname as ttrpgIntroShortname } from './algos/ttrpg'
+import { filterAndMap as filterAndMapTTRPGIntro, shortname as ttrpgIntroShortname } from './algos/ttrpg-intro'
 // import { filterAndMap as filterAndMapTTRPGTest } from './algos/ttrpg-testing'
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
