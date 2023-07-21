@@ -4,16 +4,8 @@ import { AppContext } from '../config'
 
 export const shortname = 'ttrpg-intro'
 
-const terms = [
-  'ttrpgintro'
-];
-
-import buildRegex from './buildRegex';
-
-const matchRegex = buildRegex(terms);
-
 const matcher = (post) => {
-  const matchTerms = matchRegex.test(post.record.text.toLowerCase());
+  const matchTerms = post.record.text.toLowerCase().includes('#ttrpgintro');
   return matchTerms;
 }
 
