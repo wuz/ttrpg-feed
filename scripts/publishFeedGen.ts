@@ -4,9 +4,10 @@ import fs from 'fs/promises'
 import { ids } from '../src/lexicon/lexicons'
 import path from 'path';
 import { shortname as ttrpgShortname} from '../src/algos/ttrpg';
+import { shortname as ttrpgIntroShortName} from '../src/algos/ttrpg-intro';
 import { shortname as critRoleSpoilerShortname} from '../src/algos/critrole-spoilers';
 
-const envPath = path.resolve(__dirname, '../.env.local');
+const envPath = path.resolve(__dirname, '../.env.example');
 
 const feeds = [
   {
@@ -16,6 +17,12 @@ const feeds = [
 Have a request for a specific game? Reach out to @skeet.computer. 
 Opt out with #nofeed or #nottrpgfeed.`,
     avatar: path.resolve(__dirname, '../ttrpgAvatar.png'),
+  },
+  {
+    recordName: ttrpgIntroShortName,
+    displayName: 'TTRPG Intros',
+    description: `A feed of introductions in the TTRPG space! Use #TTRPGIntro to post yours!`,
+    avatar: path.resolve(__dirname, '../introAvatar.png'),
   },
   {
     recordName: critRoleSpoilerShortname,
