@@ -1,3 +1,5 @@
+[![Feed Likes Badge](https://bsky-feed-badge.vercel.app/api?feed=at://did:plc:iuk433sj23ncu2oo2pfnw7fw/app.bsky.feed.generator/aaabotewjkiv4&badgeType=likes)](https://bsky.app/profile/did:plc:iuk433sj23ncu2oo2pfnw7fw/feed/aaabotewjkiv4)
+
 # TTRPG Feed
 
 This is the code for the `TTRPG Folks` feed over on bluesky!
