@@ -6,6 +6,7 @@ import { uniqBy } from 'lodash';
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
 import { filterAndMap as filterAndMapTTRPG, shortname as ttrpgShortname } from './algos/ttrpg'
 import { filterAndMap as filterAndMapCritRoleSpoiler, shortname as critRoleSpoilerShortname } from './algos/critrole-spoilers'
+import { filterAndMap as filterAndMapTTRPGIntro, shortname as ttrpgIntroShortname } from './algos/ttrpg'
 // import { filterAndMap as filterAndMapTTRPGTest } from './algos/ttrpg-testing'
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
@@ -16,6 +17,8 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const ttrpgCreatePosts = filterAndMapTTRPG(ops.posts.creates)
     const critRoleSpoilerCreatePosts = filterAndMapCritRoleSpoiler(ops.posts.creates)
+    const ttrpgIntroCreatePosts = filterAndMapTTRPGIntro(ops.posts.creates)
+
 
     const ttrpgPostTags = ttrpgCreatePosts.map((post) => ({
       post_uri: post.uri,
@@ -25,6 +28,11 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const critRoleSpoilerPostTags = critRoleSpoilerCreatePosts.map((post) => ({
       post_uri: post.uri,
       tag: critRoleSpoilerShortname,
+      indexedAt: post.indexedAt,
+    }));
+    const ttrpgIntroPostTags = ttrpgIntroCreatePosts.map((post) => ({
+      post_uri: post.uri,
+      tag: ttrpgIntroShortname,
       indexedAt: post.indexedAt,
     }));
     // const ttrpgTestCreatePosts = filterAndMapTTRPGTest(ops.posts.creates)
@@ -39,8 +47,8 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
         .where('post_uri', 'in', postsToDelete)
         .execute()
     }
-    const createPosts = uniqBy([...ttrpgCreatePosts, ...critRoleSpoilerCreatePosts], 'uri');
-    const createPostTags = [...ttrpgPostTags, ...critRoleSpoilerPostTags];
+    const createPosts = uniqBy([...ttrpgCreatePosts, ...critRoleSpoilerCreatePosts, ...ttrpgIntroCreatePosts], 'uri');
+    const createPostTags = [...ttrpgPostTags, ...critRoleSpoilerPostTags, ...ttrpgIntroPostTags];
 
     if (createPosts.length > 0) {
       await this.db
