@@ -16,8 +16,7 @@ This algorithm is pretty simple right now, but it basically checks each post
 against a regex of different values and decides if that post is about TTRPGs.
 It checks a number of specific games and general terms, as well as the 🎲 emoji.
 
-This feed also removes any posts tagged as being a Critical Role spoiler or with
-# nofeed or #nottrpgfeed.
+This feed also removes any posts tagged as being a Critical Role spoiler or with #nofeed or #nottrpgfeed.
 
 
 
