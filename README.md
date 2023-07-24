@@ -19,7 +19,9 @@ It checks a number of specific games and general terms, as well as the 🎲 emoj
 This feed also removes any posts tagged as being a Critical Role spoiler or with
 # nofeed or #nottrpgfeed.
 
-<detail>
+
+
+<details>
 <summary>Games and terms matched</summary>
 
 #### General Terms
@@ -163,7 +165,7 @@ This feed also removes any posts tagged as being a Critical Role spoiler or with
 
 - ennies
 
-</detail>
+</details>
 
 ## Critical Role Spoilers
 
