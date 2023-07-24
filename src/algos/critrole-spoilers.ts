@@ -4,30 +4,29 @@ import { AppContext } from '../config'
 
 export const shortname = 'critrolespoiler'
 
-const terms = [
-  'crit(ical)? role spoilers?'
-];
+const terms = ['crit(ical)? role spoilers?']
 
-import buildRegex from './buildRegex';
+import buildRegex from './buildRegex'
 
-const matchRegex = buildRegex(terms);
+const matchRegex = buildRegex(terms)
 
 const matcher = (post) => {
-  const matchTerms = matchRegex.test(post.record.text.toLowerCase());
-  return matchTerms;
+  const matchTerms = matchRegex.test(post.record.text.toLowerCase())
+  return matchTerms
 }
 
-export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
-  return {
-    uri: create.uri,
-    cid: create.cid,
-    replyParent: create.record?.reply?.parent.uri ?? null,
-    replyRoot: create.record?.reply?.root.uri ?? null,
-    indexedAt: new Date().toISOString(),
-  }
-});
+export const filterAndMap = (posts) =>
+  posts.filter(matcher).map((create) => {
+    return {
+      uri: create.uri,
+      cid: create.cid,
+      replyParent: create.record?.reply?.parent.uri ?? null,
+      replyRoot: create.record?.reply?.root.uri ?? null,
+      indexedAt: new Date().toISOString(),
+    }
+  })
 
-const pinnedMessage = '';
+const pinnedMessage = ''
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
@@ -54,19 +53,18 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
 
   const feed = res.map((row) => ({
     post: row.uri,
-  }));
+  }))
 
-  if(pinnedMessage) {
+  if (pinnedMessage) {
     feed.unshift({ post: pinnedMessage })
   }
-
 
   let cursor: string | undefined
   const last = res.at(-1)
   if (last) {
     cursor = `${new Date(last.indexedAt).getTime()}::${last.cid}`
   }
-  
+
   return {
     cursor,
     feed,
