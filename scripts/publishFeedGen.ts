@@ -2,20 +2,24 @@ import dotenv from 'dotenv'
 import { AtpAgent, BlobRef } from '@atproto/api'
 import fs from 'fs/promises'
 import { ids } from '../src/lexicon/lexicons'
-import path from 'path';
-import { shortname as ttrpgShortname} from '../src/algos/ttrpg';
-import { shortname as ttrpgIntroShortName} from '../src/algos/ttrpg-intro';
-import { shortname as critRoleSpoilerShortname} from '../src/algos/critrole-spoilers';
+import path from 'path'
+import { shortname as ttrpgShortname } from '../src/algos/ttrpg'
+import { shortname as ttrpgIntroShortName } from '../src/algos/ttrpg-intro'
+import { shortname as critRoleSpoilerShortname } from '../src/algos/critrole-spoilers'
 
-const envPath = path.resolve(__dirname, '../.env.example');
+const envPath = path.resolve(__dirname, '../.env.local')
 
 const feeds = [
   {
     recordName: ttrpgShortname,
     displayName: 'TTRPG Folks',
-    description: `A comprehensive feed of TTRPG posts! 
-Have a request for a specific game? Reach out to @skeet.computer. 
-Opt out with #nofeed or #nottrpgfeed.`,
+    description: `A comprehensive feed of TTRPG posts!
+🎉 Filters out Critical Role Spoilers!
+⚔️ Tons of terms matching games and systems, large and small!
+🏆 Matches for Ennies, a bunch of APs, and lots of creators.
+❌ Opt out with #nofeed or #nottrpgfeed.
+Have a request? Hit up @skeet.computer!
+`,
     avatar: path.resolve(__dirname, '../ttrpgAvatar.png'),
   },
   {
@@ -27,15 +31,15 @@ Opt out with #nofeed or #nottrpgfeed.`,
   {
     recordName: critRoleSpoilerShortname,
     displayName: 'Critical Role Spoilers',
-    description: `A feed of posts talking about Critical Role spoilers! 
-Something not working? Reach out to @skeet.computer. 
+    description: `A feed of posts talking about Critical Role spoilers!
+Something not working? Reach out to @skeet.computer.
 To use, add "critical role spoiler" or #critrolespoiler to your posts.`,
     avatar: path.resolve(__dirname, '../critRoleSpoilerAvatar.png'),
-  }
-];
+  },
+]
 
 const run = async () => {
-  dotenv.config({ path:envPath})
+  dotenv.config({ path: envPath })
 
   const handle = 'skeet.computer'
   const password = process.env.BSKY_PASSWORD ?? ''
@@ -62,37 +66,39 @@ const run = async () => {
     )
   }
 
-  await Promise.all(feeds.map(async ({avatar, recordName, displayName, description}) => {
-    let avatarRef: BlobRef | undefined
-    if (avatar) {
-      let encoding: string
-      if (avatar.endsWith('png')) {
-        encoding = 'image/png'
-      } else if (avatar.endsWith('jpg') || avatar.endsWith('jpeg')) {
-        encoding = 'image/jpeg'
-      } else {
-        throw new Error('expected png or jpeg')
+  await Promise.all(
+    feeds.map(async ({ avatar, recordName, displayName, description }) => {
+      let avatarRef: BlobRef | undefined
+      if (avatar) {
+        let encoding: string
+        if (avatar.endsWith('png')) {
+          encoding = 'image/png'
+        } else if (avatar.endsWith('jpg') || avatar.endsWith('jpeg')) {
+          encoding = 'image/jpeg'
+        } else {
+          throw new Error('expected png or jpeg')
+        }
+        const img = await fs.readFile(avatar)
+        const blobRes = await agent.api.com.atproto.repo.uploadBlob(img, {
+          encoding,
+        })
+        avatarRef = blobRes.data.blob
       }
-      const img = await fs.readFile(avatar)
-      const blobRes = await agent.api.com.atproto.repo.uploadBlob(img, {
-        encoding,
+
+      await agent.api.com.atproto.repo.putRecord({
+        repo: agent.session?.did ?? '',
+        collection: ids.AppBskyFeedGenerator,
+        rkey: recordName,
+        record: {
+          did: feedGenDid,
+          displayName: displayName,
+          description: description,
+          avatar: avatarRef,
+          createdAt: new Date().toISOString(),
+        },
       })
-      avatarRef = blobRes.data.blob
-    }
-  
-    await agent.api.com.atproto.repo.putRecord({
-      repo: agent.session?.did ?? '',
-      collection: ids.AppBskyFeedGenerator,
-      rkey: recordName,
-      record: {
-        did: feedGenDid,
-        displayName: displayName,
-        description: description,
-        avatar: avatarRef,
-        createdAt: new Date().toISOString(),
-      },
-    })
-  }));
+    }),
+  )
 
   console.log('All done 🎉')
 }

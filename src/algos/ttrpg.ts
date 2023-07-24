@@ -53,8 +53,8 @@ const terms = [
   'bonus action',
   'map crow',
   'arcane anthems',
-  'griffon\'?s saddlebag',
-  
+  "griffon'?s saddlebag",
+
   // D&D
   'dungeons and dragons',
   'dungeons & dragons',
@@ -63,11 +63,11 @@ const terms = [
   'd&d beyond',
   'dndbeyond',
   'dnd beyond',
-  
+
   // paizo
   'pathfinder',
   'starfinder',
-  
+
   // Free League
   'mork borg',
   'pirate borg',
@@ -78,13 +78,10 @@ const terms = [
   'mutant year zero',
   'tales from the loop',
   'vaesen',
-  'r\.? talsorian',
+  'r.? talsorian',
   'darrington press',
 
-  // Orr Report 2021 Top 25
-  // https://blog.roll20.net/media/orrreport-2021-q4-long.pdf
-  // this section only contains games from the Orr Report that weren't 
-  // in other sections already
+  // other games
   'tormenta',
   'das schwarze auge',
   'apocalypse world',
@@ -94,12 +91,7 @@ const terms = [
   'vampire: the masquerade',
   'lancer',
   'dungeon world',
-
-  // ICV2 Report Fall 2022
-  // https://icv2.com/articles/markets/view/53650/top-hobby-channel-roleplaying-games-fall-2022
   'transformers rpg',
-  
-  // other games
   'warhammer',
   'wrath and glory',
   'wrath & glory',
@@ -131,6 +123,7 @@ const terms = [
   'candela obscura',
   'daggerheart',
   'monster hearts',
+  'eco mofos',
 
   // looser terms
   'worldbuilding',
@@ -141,31 +134,26 @@ const terms = [
 
   // awards
   'ennies',
-];
+]
 
-const excludeTerms = [
-  'crit(ical)? role spoilers?',
-  'nofeed',
-  'nottrpgfeed'
-];
+const excludeTerms = ['crit(ical)? role spoilers?', 'nofeed', 'nottrpgfeed']
 
-const emojis = [
-    '🎲'
-];
+const emojis = ['🎲']
 
-import buildRegex from './buildRegex';
+import buildRegex from './buildRegex'
 
-const matchRegex = buildRegex(terms);
-const excludeRegex = buildRegex(excludeTerms);
+const matchRegex = buildRegex(terms)
+const excludeRegex = buildRegex(excludeTerms)
 
 const matcher = (post) => {
-  const matchTerms = matchRegex.test(post.record.text.toLowerCase());
-  const matchEmoji = emojis.some((emoji) => post.record.text.includes(emoji));
-  const optout = excludeRegex.test(post.record.text.toLowerCase());
-  return !optout && (matchTerms || matchEmoji);
+  const matchTerms = matchRegex.test(post.record.text.toLowerCase())
+  const matchEmoji = emojis.some((emoji) => post.record.text.includes(emoji))
+  const optout = excludeRegex.test(post.record.text.toLowerCase())
+  return !optout && (matchTerms || matchEmoji)
 }
 
-export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
+export const filterAndMap = (posts) =>
+  posts.filter(matcher).map((create) => {
     return {
       uri: create.uri,
       cid: create.cid,
@@ -173,9 +161,9 @@ export const filterAndMap = (posts) => posts.filter(matcher).map((create) => {
       replyRoot: create.record?.reply?.root.uri ?? null,
       indexedAt: new Date().toISOString(),
     }
-  });
+  })
 
-const pinnedMessage = '';
+const pinnedMessage = ''
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
@@ -202,9 +190,9 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
 
   const feed = res.map((row) => ({
     post: row.uri,
-  }));
+  }))
 
-  if(pinnedMessage) {
+  if (pinnedMessage) {
     feed.unshift({ post: pinnedMessage })
   }
 
@@ -213,7 +201,6 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
   if (last) {
     cursor = `${new Date(last.indexedAt).getTime()}::${last.cid}`
   }
-  
 
   return {
     cursor,
