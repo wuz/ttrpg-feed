@@ -7,6 +7,7 @@ import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
 import { filterAndMap as filterAndMapTTRPG, shortname as ttrpgShortname } from './algos/ttrpg'
 import { filterAndMap as filterAndMapCritRoleSpoiler, shortname as critRoleSpoilerShortname } from './algos/critrole-spoilers'
 import { filterAndMap as filterAndMapTTRPGIntro, shortname as ttrpgIntroShortname } from './algos/ttrpg-intro'
+import { filterAndMap as filterAndMapItch, shortname as itchShortname } from './algos/itch'
 // import { filterAndMap as filterAndMapTTRPGTest } from './algos/ttrpg-testing'
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
@@ -18,6 +19,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const ttrpgCreatePosts = filterAndMapTTRPG(ops.posts.creates)
     const critRoleSpoilerCreatePosts = filterAndMapCritRoleSpoiler(ops.posts.creates)
     const ttrpgIntroCreatePosts = filterAndMapTTRPGIntro(ops.posts.creates)
+    const itchCreatePosts = filterAndMapItch(ops.posts.creates)
 
 
     const ttrpgPostTags = ttrpgCreatePosts.map((post) => ({
@@ -35,6 +37,11 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
       tag: ttrpgIntroShortname,
       indexedAt: post.indexedAt,
     }));
+    const itchPostTags = itchCreatePosts.map((post) => ({
+      post_uri: post.uri,
+      tag: itchShortname,
+      indexedAt: post.indexedAt,
+    }));
     // const ttrpgTestCreatePosts = filterAndMapTTRPGTest(ops.posts.creates)
 
     if (postsToDelete.length > 0) {
@@ -47,8 +54,8 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
         .where('post_uri', 'in', postsToDelete)
         .execute()
     }
-    const createPosts = uniqBy([...ttrpgCreatePosts, ...critRoleSpoilerCreatePosts, ...ttrpgIntroCreatePosts], 'uri');
-    const createPostTags = [...ttrpgPostTags, ...critRoleSpoilerPostTags, ...ttrpgIntroPostTags];
+    const createPosts = uniqBy([...ttrpgCreatePosts, ...critRoleSpoilerCreatePosts, ...ttrpgIntroCreatePosts, ...itchCreatePosts], 'uri');
+    const createPostTags = [...ttrpgPostTags, ...critRoleSpoilerPostTags, ...ttrpgIntroPostTags, ...itchPostTags];
 
     if (createPosts.length > 0) {
       await this.db
