@@ -21,6 +21,7 @@ const terms = [
 
   // events
   'gen con',
+  'big bad con',
 
   // shows
   'critical role',
@@ -124,6 +125,7 @@ const terms = [
   'daggerheart',
   'monster hearts',
   'eco mofos',
+  'monsters and counselors',
 
   // looser terms
   'worldbuilding',
@@ -134,6 +136,7 @@ const terms = [
 
   // awards
   'ennies',
+  'crit awards',
 ]
 
 const excludeTerms = ['crit(ical)? role spoilers?', 'nofeed', 'nottrpgfeed']
