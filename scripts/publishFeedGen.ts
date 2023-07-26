@@ -6,6 +6,7 @@ import path from 'path'
 import { shortname as ttrpgShortname } from '../src/algos/ttrpg'
 import { shortname as ttrpgIntroShortName } from '../src/algos/ttrpg-intro'
 import { shortname as critRoleSpoilerShortname } from '../src/algos/critrole-spoilers'
+import { shortname as itchShortname } from '../src/algos/itch'
 
 const envPath = path.resolve(__dirname, '../.env.local')
 
@@ -36,7 +37,14 @@ Something not working? Reach out to @skeet.computer.
 To use, add "critical role spoiler" or #critrolespoiler to your posts.`,
     avatar: path.resolve(__dirname, '../critRoleSpoilerAvatar.png'),
   },
-]
+  {
+    recordName: itchShortname,
+    displayName: 'Itch.io',
+    description: `A feed matching any post with an itch.io link!
+`,
+    avatar: path.resolve(__dirname, '../itchAvatar.png'),
+  },
+].reverse()
 
 const run = async () => {
   dotenv.config({ path: envPath })
