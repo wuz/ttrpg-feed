@@ -61,6 +61,8 @@ This feed also removes any posts tagged as being a Critical Role spoiler or with
 - limithron
 - evil genius games
 - evil hat productions
+- r. talsorian
+- darrington press
 
 #### Creators
 
@@ -103,8 +105,6 @@ This feed also removes any posts tagged as being a Critical Role spoiler or with
 - mutant year zero
 - tales from the loop
 - vaesen
-- r\.? talsorian
-- darrington press
 
 #### Other Games
 

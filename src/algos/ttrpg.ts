@@ -20,7 +20,7 @@ const terms = [
   'wip wednesday',
 
   // events
-  'gen con',
+  'gen con (2023)?',
   'big bad con',
 
   // shows
@@ -41,6 +41,8 @@ const terms = [
   'limithron',
   'evil genius games',
   'evil hat productions',
+  'r.? talsorian',
+  'darrington press',
 
   // creators
   'bob the world builder',
@@ -79,8 +81,6 @@ const terms = [
   'mutant year zero',
   'tales from the loop',
   'vaesen',
-  'r.? talsorian',
-  'darrington press',
 
   // other games
   'tormenta',
