@@ -18,6 +18,7 @@ const terms = [
   // promo stuff
   'self(-\\s)promo saturday',
   'wip wednesday',
+  'ttrpg rising',
 
   // events
   'gen con (2023)?',
