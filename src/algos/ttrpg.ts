@@ -127,9 +127,7 @@ const terms = [
   'monster hearts',
   'eco mofos',
   'monsters and counselors',
-  'ÆLF',
-  'ælf',
-  'aelf',
+  '(Æ|æ|ae)lf',
 
   // looser terms
   'worldbuilding',
@@ -149,10 +147,10 @@ const emojis = ['🎲']
 
 import buildRegex from './buildRegex'
 
-const matchRegex = buildRegex(terms)
+export const matchRegex = buildRegex(terms)
 const excludeRegex = buildRegex(excludeTerms)
 
-const matcher = (post) => {
+export const matcher = (post) => {
   const matchTerms = matchRegex.test(post.record.text.toLowerCase())
   const matchEmoji = emojis.some((emoji) => post.record.text.includes(emoji))
   const optout = excludeRegex.test(post.record.text.toLowerCase())
