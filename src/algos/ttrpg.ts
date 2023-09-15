@@ -127,6 +127,9 @@ const terms = [
   'monster hearts',
   'eco mofos',
   'monsters and counselors',
+  'ÆLF',
+  'ælf',
+  'aelf',
 
   // looser terms
   'worldbuilding',
