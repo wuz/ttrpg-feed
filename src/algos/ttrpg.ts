@@ -171,7 +171,6 @@ export const filterAndMap = (posts) =>
 const pinnedMessage = ''
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
-  console.log(params.limit)
   let builder = ctx.db
     .selectFrom('post')
     .innerJoin('post_tag', 'post_tag.post_uri', 'post.uri')
@@ -179,7 +178,7 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
     .selectAll('post')
     .orderBy('indexedAt', 'desc')
     .orderBy('cid', 'desc')
-    .limit(100)
+    .limit(Math.min(params.limit, 100))
 
   if (params.cursor) {
     const [indexedAt, cid] = params.cursor.split('::')
