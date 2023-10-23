@@ -178,7 +178,7 @@ export const handler = async (ctx: AppContext, params: QueryParams) => {
     .selectAll('post')
     .orderBy('indexedAt', 'desc')
     .orderBy('cid', 'desc')
-    .limit(params.limit)
+    .limit(params.limit ?? 1000)
 
   if (params.cursor) {
     const [indexedAt, cid] = params.cursor.split('::')
