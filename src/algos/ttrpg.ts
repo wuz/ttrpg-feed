@@ -168,8 +168,7 @@ export const filterAndMap = (posts) =>
     }
   })
 
-const pinnedMessage =
-  'at://did:plc:iuk433sj23ncu2oo2pfnw7fw/app.bsky.feed.post/3ked6u7i3tc2h'
+const pinnedMessage = ''
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
