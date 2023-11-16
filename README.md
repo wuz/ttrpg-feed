@@ -1,6 +1,6 @@
 # TTRPG Feed
 
-This repo holds the code for a number of feeds run by [skeet.computer](https://bsky.app/profile/skeet.computer) on bsky!
+This repo holds the code for a number of feeds run by [lich.dad](https://bsky.app/profile/lich.dad) on bsky!
 
 # The Feeds
 

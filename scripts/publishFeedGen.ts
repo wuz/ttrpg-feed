@@ -19,7 +19,7 @@ const feeds = [
 ⚔️ Tons of terms matching games and systems, large and small!
 🏆 Matches for Ennies, a bunch of APs, and lots of creators.
 ❌ Opt out with #nofeed or #nottrpgfeed.
-Have a request? Hit up @skeet.computer!
+Have a request? Hit up @lich.dad!
 `,
     avatar: path.resolve(__dirname, '../ttrpgAvatar.png'),
   },
@@ -33,7 +33,7 @@ Have a request? Hit up @skeet.computer!
     recordName: critRoleSpoilerShortname,
     displayName: 'Critical Role Spoilers',
     description: `A feed of posts talking about Critical Role spoilers!
-Something not working? Reach out to @skeet.computer.
+Something not working? Reach out to @lich.dad.
 To use, add "critical role spoiler" or #critrolespoiler to your posts.`,
     avatar: path.resolve(__dirname, '../critRoleSpoilerAvatar.png'),
   },
@@ -49,7 +49,7 @@ To use, add "critical role spoiler" or #critrolespoiler to your posts.`,
 const run = async () => {
   dotenv.config({ path: envPath })
 
-  const handle = 'skeet.computer'
+  const handle = 'lich.dad'
   const password = process.env.BSKY_PASSWORD ?? ''
 
   // -------------------------------------
