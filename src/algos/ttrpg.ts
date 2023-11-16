@@ -168,9 +168,12 @@ export const filterAndMap = (posts) =>
     }
   })
 
-const pinnedMessage = ''
+const pinnedMessage =
+  'at://did:plc:iuk433sj23ncu2oo2pfnw7fw/app.bsky.feed.post/3ked6u7i3tc2h'
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
+  let dayLimit = new Date()
+  dayLimit.setDate(dayLimit.getDate() - 5)
   let builder = ctx.db
     .selectFrom('post')
     .innerJoin('post_tag', 'post_tag.post_uri', 'post.uri')
