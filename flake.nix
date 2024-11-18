@@ -14,9 +14,13 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             corepack_22
-            nodejs_22
+            # nodejs_22
+            bun
             nodePackages.typescript
             nodePackages.typescript-language-server
+            hcloud
+            opentofu
+            kubectl
             _hex.hex
           ];
         };
